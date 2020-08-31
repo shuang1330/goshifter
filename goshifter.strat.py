@@ -151,14 +151,14 @@ def validate_args(args):
 if __name__ == '__main__':
     args = docopt(__doc__,version='GoShifter 0.2')
     
-    print "\n******* Analysis started", datetime.now()\
-            .strftime("%A, %d. %B %Y %I:%M%p"), "*******\n"
+    print("\n******* Analysis started", datetime.now()\
+            .strftime("%A, %d. %B %Y %I:%M%p"), "*******\n")
     
-    print "Running GoShifter with following parameters:\n"
+    print("Running GoShifter with following parameters:\n")
     
     for arg in args:
-        print "\t", arg, args[arg]
-    print "\n"
+        print("\t", arg, args[arg])
+    print("\n")
     args = validate_args(args)
 
 
@@ -193,8 +193,8 @@ if __name__ == '__main__':
             args['--no-ld'],
             args['--proxies'])
 
-    print "\n******* Analysis ended", datetime\
-            .now().strftime("%A, %d. %B %Y %I:%M%p"), "*******\n"
+    print("\n******* Analysis ended", datetime\
+            .now().strftime("%A, %d. %B %Y %I:%M%p"), "*******\n")
 
 
 

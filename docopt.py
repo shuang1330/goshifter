@@ -524,8 +524,8 @@ def docopt(doc, argv=None, help=True, version=None, options_first=False):
 
     Example
     -------
-    >>> from docopt import docopt
-    >>> doc = '''
+    from docopt import docopt
+    doc = '''
     Usage:
         my_program tcp <host> <port> [--timeout=<seconds>]
         my_program serial <port> [--baud=<n>] [--timeout=<seconds>]
@@ -535,8 +535,8 @@ def docopt(doc, argv=None, help=True, version=None, options_first=False):
         -h, --help  Show this screen and exit.
         --baud=<n>  Baudrate [default: 9600]
     '''
-    >>> argv = ['tcp', '127.0.0.1', '80', '--timeout', '30']
-    >>> docopt(doc, argv)
+    argv = ['tcp', '127.0.0.1', '80', '--timeout', '30']
+    docopt(doc, argv)
     {'--baud': '9600',
      '--help': False,
      '--timeout': '30',

@@ -50,7 +50,7 @@ def readSnpMapByChr(file,maf=None):
     Returns dict, key:chrom, value:snp, bp.
     """
     maf = maf if maf is not None else 0
-    print "Filtering SNPs if MAF < {}".format(maf)
+    print("Filtering SNPs if MAF < {}".format(maf))
     snpMap = {}
     i = 0
     with open(file,'rU') as f:
@@ -80,7 +80,7 @@ def readSnpMapByChr(file,maf=None):
             snpMap[chr].setdefault(snp,{})
             snpMap[chr][snp]['bp'] = bp
             snpNu += 1
-    print 'Read {snpNu} SNPs from {file}'.format(**locals())
+    print('Read {snpNu} SNPs from {file}'.format(**locals()))
     return snpMap
     
 def readProxyMap(file,maf=None):
@@ -89,7 +89,7 @@ def readProxyMap(file,maf=None):
     Returns dict, key:chrom, value:snp, bp.
     """
     maf = maf if maf is not None else 0
-    print "Filtering SNPs if MAF < {}".format(maf)
+    print("Filtering SNPs if MAF < {}".format(maf))
     snpMap = {}
     i = 0
     with open(file,'rU') as f:
@@ -119,7 +119,7 @@ def readProxyMap(file,maf=None):
             snpMap[chr].setdefault(snp,{})
             snpMap[chr][snp]['bp'] = bp
             snpNu += 1
-    print 'Read {snpNu} SNPs from {file}'.format(**locals())
+    print('Read {snpNu} SNPs from {file}'.format(**locals()))
     return snpMap    
 
 
@@ -152,8 +152,8 @@ def checkMappingsFormat(file, line, i):
             sys.exit("Line {i}, {file}: wrong format, {bp} does not look"\
                     " like a genomic position.".format(**locals()))
     except IndexError:
-        print line
-	sys.exit('{file} missing value at line {i}, is file tab delimited?'.format(**locals()))
+        print(line)
+    sys.exit('{file} missing value at line {i}, is file tab delimited?'.format(**locals()))
 
 
 def find(pat, text):
@@ -164,8 +164,8 @@ def find(pat, text):
     return foundMatch
 
 def isHeader(snp):
-	snp = find('SNP',snp)
-	return snp
+    snp = find('SNP',snp)
+    return snp
 
 def isSnp(snp):
     snp = find('[\w:-]+', snp)
@@ -181,7 +181,7 @@ def isBp(bp):
 
 def isLine(line,file):
     yey = find('^chr',line)
-    print yey, file
+    print(yey, file)
 
 def startsChr(line):
     yay = find('^chr\w+',line)
