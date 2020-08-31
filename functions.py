@@ -55,7 +55,7 @@ seed=os.urandom(8)
 random.seed(seed)
 
 ## to use the same seed, have to decode it back
-print "\nSeed for random set to: {}\n".format(base64.b64encode(seed))
+print("\nSeed for random set to: {}\n".format(base64.b64encode(seed)))
 
 def features(fin,sep=None):
     """
@@ -71,7 +71,7 @@ def features(fin,sep=None):
     medianSize = np.median(all)
     minSize = np.min(all)
     maxSize = np.max(all)
-    print "Annotation size: median = {}, min = {}, max = {}".format(medianSize,minSize,maxSize)
+    print("Annotation size: median = {}, min = {}, max = {}".format(medianSize,minSize,maxSize))
     return medianSize
 
 
@@ -86,7 +86,7 @@ def intervalTree(fin):
         chrom, start, end = line.rstrip().split("\t")[:3]
         if chrom == "Chrom": continue
         tree.insert(chrom, int(start), int(end), (int(start),int(end)))
-    print "Read {i} lines from {fin}".format(**locals())
+    print("Read {i} lines from {fin}".format(**locals()))
     return tree
 
 
@@ -143,7 +143,7 @@ def getLdInfoTabix(snpInfoChr,tabixDir,window,r2min):
             bp = snpInfoChr[chrom][snp]['bp']
             i += 1
             if not i % 100 or i == allSnps:
-                print 'Read LD info for {i} of {allSnps} SNPs'.format(**locals())
+                print('Read LD info for {i} of {allSnps} SNPs'.format(**locals()))
             snpLdTabix(snp,chrom,bp,tabixDir,window,r2min,ldInfo)
             
     all_ld_snps = 0
@@ -153,8 +153,8 @@ def getLdInfoTabix(snpInfoChr,tabixDir,window,r2min):
             nrSnpsWoProxies += 1
         all_ld_snps += len(ldInfo[snp].keys())
     
-    print "Total number of LD SNPs across {} loci is {}. Number of loci without LD SNPs {}."\
-            .format(allSnps,all_ld_snps, nrSnpsWoProxies)
+    print("Total number of LD SNPs across {} loci is {}. Number of loci without LD SNPs {}."\
+            .format(allSnps,all_ld_snps, nrSnpsWoProxies))
     return ldInfo
 
 def getLdInfoProxyFinderFile(snpInfoChr,tabixDir,window,r2min):
@@ -227,8 +227,8 @@ def getLdInfoProxyFinderFile(snpInfoChr,tabixDir,window,r2min):
             nrSnpsWoProxies += 1
         all_ld_snps += len(ldInfo[snp].keys())
     
-    print "Total number of LD SNPs across {} loci is {}. Number of loci without LD SNPs {}."\
-            .format(allSnps,all_ld_snps, nrSnpsWoProxies)
+    print("Total number of LD SNPs across {} loci is {}. Number of loci without LD SNPs {}."\
+            .format(allSnps,all_ld_snps, nrSnpsWoProxies))
     return ldInfo    
 
 
@@ -269,8 +269,8 @@ def snpLdTabix(snp,chrom,bp,tabixDir,window,r2min,ldInfo):
             ldInfo[snp][snp1]['r2'] = r2
             infile = 1
     if not infile:
-        print "{snp} was not found in {tabixFile}. "\
-                "Including with no LD info.".format(**locals())
+        print("{snp} was not found in {tabixFile}. "\
+                "Including with no LD info.".format(**locals()))
         ldInfo[snp].setdefault(snp,{})
         ldInfo[snp][snp]['bp2'] = bp
         ldInfo[snp][snp]['r2'] = 1
@@ -304,10 +304,10 @@ def permRandBoundryPeakShift(snpInfoChr,peaksTree,ldInfo,expand,minShift,maxShif
     ldsnpPeakInfo = {}
 
     if minShift == "False" or maxShift == "False":
-        print "Shifting annotations by random value within LD boundries"
+        print("Shifting annotations by random value within LD boundries")
     else:
-        print "Shifting annotations by random value within specified "\
-                "{} and {} range".format(minShift,maxShift)
+        print("Shifting annotations by random value within specified "\
+                "{} and {} range".format(minShift,maxShift))
 
     for chrom in bounds:
         for snp in bounds[chrom]:
@@ -394,7 +394,7 @@ def getLdBounds(ldInfo,mappingsByChr):
     For each SNP defines LD boundries based on most upstream and downstream LD SNPs
     """
 
-    print "Defining LD boundries"
+    print("Defining LD boundries")
     bounds = {}
     for chrom in mappingsByChr:
         bounds.setdefault(chrom,{})
@@ -416,8 +416,8 @@ def peaks2region(bounds,peaksTree,expand):
     Assignes peaks to an interval based on bx.python interval tree.
     """
 
-    print "Mapping annotations to LD boundries extended by {expand} bp".\
-            format(**locals())
+    print("Mapping annotations to LD boundries extended by {expand} bp".\
+            format(**locals()))
     
     peaksToSnp = {}
     for chrom in bounds:
@@ -523,9 +523,9 @@ def overlapStratPerm(snpPeakInfo,snpInfoChr,fOut,nPerm,ldInfo):
 
     # calculate p-value and write to log file
     pval = betterScore/nPerm
-    print "p-value = {}".format(pval)
-    print 'Detailed enrichment results per permutation written to {}'\
-            .format(f_enrich)
+    print("p-value = {}".format(pval))
+    print('Detailed enrichment results per permutation written to {}'\
+            .format(f_enrich))
 
 
 def overlapPerm(snpPeakInfo,ldsnpPeakInfo,snpInfoChr,fOut,nPerm,ldInfo):
@@ -597,13 +597,13 @@ def overlapPerm(snpPeakInfo,ldsnpPeakInfo,snpInfoChr,fOut,nPerm,ldInfo):
 
     # calculate p-value and write to log file
     pval = betterScore/nPerm
-    print "p-value = {}".format(pval)
-    print 'Detailed enrichment results per permutation written to {}'\
-            .format(f_enrich)
-    print 'Locus scores written to {}'\
-            .format(f_locus_score)
-    print 'SNP scores written to {}'\
-            .format(f_snp_score)
+    print("p-value = {}".format(pval))
+    print('Detailed enrichment results per permutation written to {}'\
+            .format(f_enrich))
+    print('Locus scores written to {}'\
+            .format(f_locus_score))
+    print('SNP scores written to {}'\
+            .format(f_snp_score))
 
 
 def mergeTree(fin1):
@@ -615,8 +615,8 @@ def mergeTree(fin1):
     mergeIntervals = 0
     for chrom in tree:
         mergeIntervals += len(tree[chrom].getregions())
-    print "There are {mergeIntervals} regions after merging overlaping"\
-    " intervals".format(**locals())
+    print("There are {mergeIntervals} regions after merging overlaping"\
+    " intervals".format(**locals()))
     return tree
 
 
@@ -627,7 +627,7 @@ def iterFileTree(fin,trees):
         chrom, beg, end = line.rstrip().split("\t")[:3]
         if chrom == "Chrom": continue
         trees[chrom].insert(int(beg), int(end), n)
-    print "Read {n} lines from {fin}".format(**locals())
+    print("Read {n} lines from {fin}".format(**locals()))
 
 
 def merge2IntervalTree(mergeTree):
@@ -679,10 +679,10 @@ def shift_conditional(snpInfoChr,a_tree,b_tree,ldInfo,expand,minShift,maxShift,n
     count_perm = 0
     
     if minShift == "False" or maxShift == "False":
-        print "Shifting annotations by random value within LD boundries"
+        print("Shifting annotations by random value within LD boundries")
     else:
-        print "Shifting annotations by random value within specified "\
-                "{} and {} range".format(minShift,maxShift)
+        print("Shifting annotations by random value within specified "\
+                "{} and {} range".format(minShift,maxShift))
     
     # set results to non-overlap up front
     for chrom in bounds:
@@ -796,7 +796,7 @@ def shift_conditional(snpInfoChr,a_tree,b_tree,ldInfo,expand,minShift,maxShift,n
 
                     else:
                         sys.exit("I missed something. No A annotations"\
-                                " for SNP {}".fomrat(snp))
+                                " for SNP {}".format(snp))
 
     return snpPeakInfo
 
@@ -1037,11 +1037,11 @@ def segment_remap(intervals_list,a_in_intervals,snps_in_intervals,minbp,maxbp):
             ' Stopping!!'.format(**locals())
     len_remap_a = len(remap_a_in_intervals)
     if all_a != len(remap_a_in_intervals):
-        print minbp,maxbp
-        print "intervals:",intervals_list
-        print "remapped intervals:", remap_intervals_list
-        print "a in intervals:",a_in_intervals
-        print "a in remapped intervals:", remap_a_in_intervals
+        print(minbp,maxbp)
+        print("intervals:",intervals_list)
+        print("remapped intervals:", remap_intervals_list)
+        print("a in intervals:",a_in_intervals)
+        print("a in remapped intervals:", remap_a_in_intervals)
     assert all_a == len(remap_a_in_intervals),\
             'Number of A annotations after remaping {len_remap_a}'\
             ' is different than in the input {all_a}!'\
